@@ -1,13 +1,18 @@
 generator client {
-  provider        = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "sqlite"
-  url      = "file:./db.sql"
+  url      = "file:./dummy.sql"
 }
 
 model Todo {
-  id String @id @default(cuid())
-  @@map("todos")
+  id          String   @id @default(cuid())
+  title       String
+  isCompleted Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("next_wds_todos")
 }
