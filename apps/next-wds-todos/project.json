@@ -1,0 +1,54 @@
+{
+  "name": "next-wds-todos",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/next-wds-todos",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/next:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/apps/next-wds-todos"
+      },
+      "configurations": {
+        "development": {
+          "outputPath": "apps/next-wds-todos"
+        },
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/next:server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "next-wds-todos:build",
+        "dev": true
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "next-wds-todos:build:development",
+          "dev": true
+        },
+        "production": {
+          "buildTarget": "next-wds-todos:build:production",
+          "dev": false
+        }
+      }
+    },
+    "export": {
+      "executor": "@nx/next:export",
+      "options": {
+        "buildTarget": "next-wds-todos:build:production"
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/next-wds-todos/**/*.{ts,tsx,js,jsx}"]
+      }
+    }
+  },
+  "tags": []
+}
