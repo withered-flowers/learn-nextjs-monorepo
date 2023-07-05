@@ -1,0 +1,56 @@
+{
+  "name": "next-local-storage-usage",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/next-local-storage-usage",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/next:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/apps/next-local-storage-usage"
+      },
+      "configurations": {
+        "development": {
+          "outputPath": "apps/next-local-storage-usage"
+        },
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/next:server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "next-local-storage-usage:build",
+        "dev": true
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "next-local-storage-usage:build:development",
+          "dev": true
+        },
+        "production": {
+          "buildTarget": "next-local-storage-usage:build:production",
+          "dev": false
+        }
+      }
+    },
+    "export": {
+      "executor": "@nx/next:export",
+      "options": {
+        "buildTarget": "next-local-storage-usage:build:production"
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "apps/next-local-storage-usage/**/*.{ts,tsx,js,jsx}"
+        ]
+      }
+    }
+  },
+  "tags": []
+}
